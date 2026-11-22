@@ -12,7 +12,7 @@ Tema natalizio per UNIT3D: un foglio di stile esterno che si applica sopra il te
 Aggiungi l'URL del CSS come stylesheet esterno in UNIT3D:
 
 ```
-https://cdn.jsdelivr.net/gh/xTheDoctah/natale-unit3d@main/natale-unit3d.css
+https://xthedoctah.github.io/natale-unit3d/natale-unit3d.css
 ```
 
 Tutti i colori e la velocità della neve si cambiano dalle variabili in `:root`.
