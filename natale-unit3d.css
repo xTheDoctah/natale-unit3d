@@ -1,0 +1,114 @@
+/* ==========================================================
+   Tema natalizio per UNIT3D (stylesheet esterno, si sovrappone al tema)
+   Rosso / verde / oro + neve che cade + lucine sul bordo alto
+   Tutto sovrascrivibile dalle variabili in :root
+   ========================================================== */
+
+:root {
+  /* palette natalizia */
+  --xmas-red: #c62f3a;
+  --xmas-red-dark: #8f1f28;
+  --xmas-green: #1f7a4a;
+  --xmas-green-dark: #0f3d26;
+  --xmas-gold: #f5c542;
+  --xmas-snow: #ffffff;
+
+  /* colori principali del sito */
+  --color-primary: var(--xmas-red);
+  --color-success: var(--xmas-green);
+  --color-warning: var(--xmas-gold);
+  --color-danger: #e24b4a;
+  --color-light-primary: #e86a73;
+  --color-light-success: #3fae75;
+  --color-light-warning: #ffd966;
+
+  /* pannelli */
+  --panel-border: rgba(245, 197, 66, 0.28);
+  --panel-head-bg: linear-gradient(90deg, rgba(198, 47, 58, 0.28), rgba(31, 122, 74, 0.28));
+  --panel-head-fg: #fff;
+  --panel-border-radius: 10px;
+
+  /* tabelle */
+  --data-table-th-bg: rgba(198, 47, 58, 0.22);
+  --data-table-thead-border: var(--xmas-gold);
+  --data-table-tr-hover-bg: rgba(31, 122, 74, 0.25);
+
+  /* card e righe torrent */
+  --torrent-card-border: rgba(245, 197, 66, 0.35);
+  --torrent-card-head-bg: rgba(198, 47, 58, 0.35);
+  --torrent-row-freeleech-fg: #8ff0b5;
+  --torrent-row-double-upload-fg: var(--xmas-gold);
+  --torrent-row-sticky-bg: rgba(245, 197, 66, 0.1);
+
+  /* velocita e intensita delle animazioni */
+  --snow-speed: 14s;
+}
+
+/* ---------- bottoni ---------- */
+.btn-primary,
+.btn-success {
+  border-color: var(--xmas-gold) !important;
+  transition: transform 0.15s ease, filter 0.15s ease;
+}
+.btn-primary { background-color: var(--xmas-red) !important; }
+.btn-success { background-color: var(--xmas-green) !important; }
+.btn-primary:hover,
+.btn-success:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.12);
+}
+
+/* ---------- link del menu in oro al passaggio ---------- */
+a:hover { color: var(--xmas-gold); }
+
+/* ---------- lucine di Natale sul bordo alto ---------- */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  z-index: 99998;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 10px 6px, #ff4d4d 0 4px, transparent 5px) 0 0 / 80px 14px repeat-x,
+    radial-gradient(circle at 30px 6px, #ffd24d 0 4px, transparent 5px) 0 0 / 80px 14px repeat-x,
+    radial-gradient(circle at 50px 6px, #4dd0ff 0 4px, transparent 5px) 0 0 / 80px 14px repeat-x,
+    radial-gradient(circle at 70px 6px, #6ee27a 0 4px, transparent 5px) 0 0 / 80px 14px repeat-x;
+  animation: xmas-blink 1.6s ease-in-out infinite;
+}
+@keyframes xmas-blink {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 1; }
+}
+
+/* ---------- neve che cade (su tutta la pagina, non blocca i click) ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  background-image:
+    radial-gradient(3px 3px at 20px 30px,  #fff, transparent),
+    radial-gradient(2px 2px at 90px 80px,  #fff, transparent),
+    radial-gradient(4px 4px at 160px 20px, #fff, transparent),
+    radial-gradient(2px 2px at 230px 120px,#fff, transparent),
+    radial-gradient(3px 3px at 300px 60px, #fff, transparent),
+    radial-gradient(2px 2px at 370px 150px,#fff, transparent),
+    radial-gradient(4px 4px at 440px 90px, #fff, transparent);
+  background-size: 480px 200px;
+  opacity: 0.85;
+  animation: xmas-snow var(--snow-speed) linear infinite;
+}
+@keyframes xmas-snow {
+  from { background-position: 0 0; }
+  to   { background-position: 60px 200px; }
+}
+
+/* ---------- accessibilita: niente animazioni se il sistema lo chiede ---------- */
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  body::after { animation: none; }
+}
