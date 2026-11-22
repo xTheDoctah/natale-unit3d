@@ -119,64 +119,90 @@ body::before {
 }
 
 /* ==========================================================
-   Bottone «SCOPRI ORA TUTTI I PRIVILEGI»: bastoncino di zucchero
-   bordo a strisce rosse e bianche che scorre + riflesso + cuori
+   Bottone «SCOPRI ORA TUTTI I PRIVILEGI»: banner di Natale
+   rosso con lucine che lampeggiano, neve, riflesso e stelline
    ========================================================== */
 a[href="/donations"] > #myButton {
   position: relative;
   overflow: hidden;
-  border: 4px solid transparent !important;
-  border-radius: 12px;
+  display: inline-block;
+  min-width: 340px;
+  padding: 20px 28px 12px !important;
+  background-color: #c62f3a !important;
+  border: 2px solid #7d1620 !important;
+  border-radius: 14px;
+  line-height: 1.25;
+  /* neve (tile 120x60 che scende) + riflesso che scorre */
   background-image:
-    linear-gradient(#1f7a4a, #1f7a4a),
-    repeating-linear-gradient(45deg, #d7263d 0 14px, #ffffff 14px 28px);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
-  background-size: auto, 39.6px 39.6px;
-  animation: cane-move 1.2s linear infinite;
+    radial-gradient(2px 2px at 14px 10px, rgba(255,255,255,.9), transparent),
+    radial-gradient(3px 3px at 52px 34px, rgba(255,255,255,.9), transparent),
+    radial-gradient(2px 2px at 88px 18px, rgba(255,255,255,.9), transparent),
+    radial-gradient(3px 3px at 106px 48px, rgba(255,255,255,.8), transparent),
+    linear-gradient(105deg, transparent 42%, rgba(255,255,255,.28) 50%, transparent 58%);
+  background-size: 120px 60px, 120px 60px, 120px 60px, 120px 60px, 250% 100%;
+  background-repeat: repeat, repeat, repeat, repeat, no-repeat;
+  animation: xbtn-move 3.6s linear infinite;
 }
 a[href="/donations"] > #myButton:hover {
   animation-play-state: paused;
-  transform: scale(1.04);
+  transform: scale(1.03);
 }
-@keyframes cane-move {
-  from { background-position: 0 0, 0 0; }
-  to   { background-position: 0 0, 39.6px 0; }
+@keyframes xbtn-move {
+  from { background-position: 0 0, 0 0, 0 0, 0 0, 130% 0; }
+  to   { background-position: 8px 60px, 8px 60px, 8px 60px, 8px 60px, -90% 0; }
 }
 
-/* riflesso luminoso che attraversa il bottone */
-a[href="/donations"] > #myButton::after {
+/* filo e lucine in alto */
+a[href="/donations"] > #myButton::before {
   content: "";
   position: absolute;
   top: 0;
-  left: -60%;
-  width: 28%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.3);
-  transform: skewX(-20deg);
+  left: 0;
+  right: 0;
+  height: 16px;
   pointer-events: none;
-  animation: cta-shine 2.6s ease-in-out infinite;
+  background:
+    linear-gradient(#143c20, #143c20) 0 0 / 100% 2px no-repeat,
+    radial-gradient(circle at 10px 9px, #ff4d4d 0 4px, transparent 5px) 0 0 / 80px 16px repeat-x,
+    radial-gradient(circle at 30px 9px, #ffd24d 0 4px, transparent 5px) 0 0 / 80px 16px repeat-x,
+    radial-gradient(circle at 50px 9px, #4dd0ff 0 4px, transparent 5px) 0 0 / 80px 16px repeat-x,
+    radial-gradient(circle at 70px 9px, #6ee27a 0 4px, transparent 5px) 0 0 / 80px 16px repeat-x;
+  animation: xbtn-blink 1.4s ease-in-out infinite;
 }
-@keyframes cta-shine {
-  0%        { left: -60%; }
-  60%, 100% { left: 130%; }
+@keyframes xbtn-blink {
+  0%, 100% { opacity: .55; }
+  50%      { opacity: 1; }
 }
 
-/* cuori ai lati del testo */
+/* sottotitolo sotto la scritta */
+a[href="/donations"] > #myButton::after {
+  content: "Il regalo di Natale più bello: sostieni il progetto";
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #ffe2e2;
+}
+
+/* stelline al posto dei cuori, che pulsano */
 a[href="/donations"] > #myButton font {
   display: inline-block;
-  animation: cta-beat 1.1s ease-in-out infinite;
+  font-size: 0 !important;
+  animation: xbtn-star 1.6s ease-in-out infinite;
 }
-a[href="/donations"] > #myButton font:last-of-type { animation-delay: 0.15s; }
-@keyframes cta-beat {
-  0%, 100% { transform: scale(1); }
-  15%      { transform: scale(1.35); }
-  30%      { transform: scale(1); }
-  45%      { transform: scale(1.25); }
+a[href="/donations"] > #myButton font::before {
+  content: "\2736";
+  font-size: 20px;
+  color: #fff;
+}
+a[href="/donations"] > #myButton font:last-of-type { animation-delay: .3s; }
+@keyframes xbtn-star {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50%      { transform: scale(1.3) rotate(20deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
   a[href="/donations"] > #myButton,
-  a[href="/donations"] > #myButton::after,
+  a[href="/donations"] > #myButton::before,
   a[href="/donations"] > #myButton font { animation: none; }
 }
