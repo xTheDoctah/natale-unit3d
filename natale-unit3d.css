@@ -119,26 +119,29 @@ body::before {
 }
 
 /* ==========================================================
-   Bottone «SCOPRI ORA TUTTI I PRIVILEGI» (pagina principale)
-   pulse + onda verde + riflesso che scorre + cuori che battono
+   Bottone «SCOPRI ORA TUTTI I PRIVILEGI»: bastoncino di zucchero
+   bordo a strisce rosse e bianche che scorre + riflesso + cuori
    ========================================================== */
 a[href="/donations"] > #myButton {
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
-  animation: cta-pulse 1.8s ease-in-out infinite, cta-ring 1.8s ease-out infinite;
+  border: 4px solid transparent !important;
+  border-radius: 12px;
+  background-image:
+    linear-gradient(#1f7a4a, #1f7a4a),
+    repeating-linear-gradient(45deg, #d7263d 0 14px, #ffffff 14px 28px);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: auto, 39.6px 39.6px;
+  animation: cane-move 1.2s linear infinite;
 }
 a[href="/donations"] > #myButton:hover {
   animation-play-state: paused;
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
-@keyframes cta-pulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.045); }
-}
-@keyframes cta-ring {
-  0%   { box-shadow: 0 0 0 0 rgba(76, 149, 61, 0.75); }
-  100% { box-shadow: 0 0 0 16px rgba(76, 149, 61, 0); }
+@keyframes cane-move {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 0 0, 39.6px 0; }
 }
 
 /* riflesso luminoso che attraversa il bottone */
@@ -149,7 +152,7 @@ a[href="/donations"] > #myButton::after {
   left: -60%;
   width: 28%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.3);
   transform: skewX(-20deg);
   pointer-events: none;
   animation: cta-shine 2.6s ease-in-out infinite;
